@@ -86,6 +86,7 @@ function Skills() {
           <li>MySQL</li>
           <li>NoSQL</li>
           <li>MongoDB</li>
+          <li>Express.js</li>
           <li>Node.js</li>
           <li>Jenkins</li>
         </ul>
