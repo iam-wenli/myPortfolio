@@ -72,9 +72,9 @@ function Skills() {
       <section className='basis-1/4'>
         <h3 className='text-left text-xl sm:text-3xl pb-3 font-bold'>Frontend</h3>
         <ul className='list-none text-base sm:text-xl leading-relaxed'>
-          <li className=''>HTML</li>
-          <li className=''>CSS</li>
-          <li className='tracking-normal'>Javascript</li>
+          <li>HTML</li>
+          <li>CSS</li>
+          <li className='tracking-wide'>Javascript</li>
           <li>ReactJS</li>
           <li>Tailwind</li>
           <li>Material UI</li>
