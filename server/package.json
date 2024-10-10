@@ -4,19 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=production node server.js",
+    "start-dev": "NODE_ENV=development node server.js",
     "client": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run start\" \"npm run client\""
+    "dev": "NODE_ENV=development concurrently \"npm run start-dev\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2",
-    "helmet": "^7.1.0"
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "helmet": "^7.1.0",
+    "mysql2": "^3.11.3"
   },
   "proxy": "https://localhost:5173",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^9.0.1"
   }
 }
