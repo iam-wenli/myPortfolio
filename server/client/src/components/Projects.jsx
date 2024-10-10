@@ -1,17 +1,19 @@
 import React from 'react';
-import loading from '../assets/P4loading.gif';
+import Card from './Card';
+import coffee from '../assets/P4coffee.png';
+
 
 function Projects() {
 
   return (
-    <div className="font-sans p-12 bg-red-300 h-screen relative">
-      <h1 className="text-left font-bold text-2xl sm:text-4xl py-3 pb-10">Projects</h1>
-      <div className='flex flex-col justify-center items-center'>
-        <img src={loading} className="h-60 mt-4 sm:h-96 sm:mt-14" alt="loading" />
-        <p className="text-lg sm:text-2xl mt-10">Work in progress ...</p>
-      </div>
+    <div className="font-serif pl-16 py-10 bg-red-300 h-screen relative">
+      <h1 className="text-left font-bold text-2xl sm:text-4xl py-3 pb-10 sm:pb-14">
+        Projects
+      </h1>
+      <Card title={"Inventory Management"} navigateTo="/bookinventory" />
+      <img className="w-28 h-28 sm:w-48 sm:h-52 absolute bottom-0 right-14 mb-12" src={coffee} alt="coffee" />
     </div>
-  )
+  );
 }
 
 export default Projects;
