@@ -5,7 +5,7 @@ import coffee from '../assets/P4coffee.png';
 
 
 function Projects() {
-  const { currentPath } = useOutletContext();
+  const { path } = useOutletContext();
 
   return (
     <div className="font-serif pl-16 py-10 bg-red-300 h-screen relative">

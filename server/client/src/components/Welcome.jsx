@@ -11,7 +11,7 @@ const breakpoints = {
 };
 
 function Welcome() {
-  const { currentPath } = useOutletContext();
+  const { path } = useOutletContext();
   
   const currentBreakpoint = useBreakpoint(breakpoints);
 

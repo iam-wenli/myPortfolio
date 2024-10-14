@@ -92,21 +92,21 @@ import 'swiper/css/navigation';
          initialSlide={initialSlide}
          onSlideChange={handleSlideChange}
        >
-         <SwiperSlide>
-            <Outlet context={{ currentPath: location.pathname }}/>
+         <SwiperSlide key={0}>
+            <Outlet context={{ path: '/welcome' }}/>
          </SwiperSlide>
-         <SwiperSlide>
-            <Outlet context={{ currentPath: location.pathname }}/>
+         <SwiperSlide key={1}>
+            <Outlet context={{ path: '/introduction' }}/>
          </SwiperSlide>
-         <SwiperSlide>
-            <Outlet context={{ currentPath: location.pathname }}/>
+         <SwiperSlide key={2}>
+            <Outlet context={{ path: '/skills' }}/>
          </SwiperSlide>
-         <SwiperSlide>
-            <Outlet context={{ currentPath: location.pathname }}/>
+         <SwiperSlide key={3}>
+            <Outlet context={{ path: '/projects' }}/>
          </SwiperSlide>
        </Swiper> 
       ) : (
-      <Outlet context={{ currentPath: location.pathname }}/>
+      <Outlet context={{ path: '/bookinventory' }}/>
       )} 
       </>
     );

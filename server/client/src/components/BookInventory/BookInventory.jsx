@@ -46,7 +46,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function BookInventory() {
-  const { currentPath } = useOutletContext();
+  const { path } = useOutletContext();
 
   const initialState = {
     isOpen: false,
