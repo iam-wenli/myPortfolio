@@ -101,7 +101,7 @@ export default function BookInventory() {
   useEffect(() => {
     const fetchAllBooks = async () => {
       try {
-        const res = await api.get(`${import.meta.env.VITE_BACKEND_URL}/Books`);
+        const res = await api.get("/Books");
         dispatch({
           type: "SET_ROWS",
           payload: res.data
@@ -121,7 +121,7 @@ export default function BookInventory() {
   }, []);
 
   const handleAddBook = () => {
-    api.post(`${import.meta.env.VITE_BACKEND_URL}/Books`, {
+    api.post("/Books", {
       title: state.title, 
       copies: state.copies, 
       price: state.price
@@ -162,7 +162,7 @@ export default function BookInventory() {
     };
     console.log("New Data to be sent:", newData);
 
-    api.patch(`${import.meta.env.VITE_BACKEND_URL}/Books/${state.BookID}`, newData)
+    api.patch(`/Books/${state.BookID}`, newData)
     .then((res) => {
       console.log("Success: Data edited", res.data);
       dispatch({ type: "EDITED" });
@@ -173,7 +173,7 @@ export default function BookInventory() {
   };
 
   const handleDeleteBook = (row) => {
-    api.delete(`${import.meta.env.VITE_BACKEND_URL}/Books/${row.BookID}`)
+    api.delete(`/Books/${row.BookID}`)
     .then((res)=>{
       console.log(`${row.title} is deleted !`, res.data);
       dispatch({
