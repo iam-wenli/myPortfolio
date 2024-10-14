@@ -11,7 +11,7 @@ const breakpoints = {
 };
 
 function Welcome() {
-  const { path } = useOutletContext();
+  const { initialSlide, setInitialSlide, navigate, location, routesWithSwiper, handleSlideChange, getSlideIndex } = useOutletContext();
   
   const currentBreakpoint = useBreakpoint(breakpoints);
 

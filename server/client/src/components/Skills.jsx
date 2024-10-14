@@ -5,7 +5,7 @@ import Switch from "@mui/material/Switch";
 import lamp from "../assets/P3street-lamp.png";
 
 function Skills() {
-  const { path } = useOutletContext();
+  const { initialSlide, setInitialSlide, navigate, location, routesWithSwiper, handleSlideChange, getSlideIndex } = useOutletContext();
 
   const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 80,

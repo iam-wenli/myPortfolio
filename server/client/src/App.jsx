@@ -37,38 +37,11 @@ import 'swiper/css/navigation';
     const handleSlideChange = (swiper) => {
       console.log('Slide changed to:', swiper.activeIndex);
       localStorage.setItem('currentSlide', swiper.activeIndex);
-      switch (swiper.activeIndex) {
-        case 0:
-          navigate('/welcome');
-          break;
-        case 1:
-          navigate('/introduction');
-          break;
-        case 2:
-          navigate('/skills');
-          break;
-        case 3:
-          navigate('/projects');
-          break;
-        default:
-          navigate('/welcome');
-          break;
-      }
+      navigate(routesWithSwiper[swiper.activeIndex] || '/welcome');
     };
   
     const getSlideIndex = (path) => {
-      switch (path) {
-        case '/welcome':
-          return 0;
-        case '/introduction':
-          return 1;
-        case '/skills':
-          return 2;
-        case '/projects':
-          return 3;
-        default:
-          return 0;
-      }
+      return routesWithSwiper.indexOf(path) !== -1 ? routesWithSwiper.indexOf(path) : 0;
     };
     
     return (
@@ -92,18 +65,11 @@ import 'swiper/css/navigation';
          initialSlide={initialSlide}
          onSlideChange={handleSlideChange}
        >
-         <SwiperSlide key={0}>
-            <Outlet context={{ path: '/welcome' }}/>
-         </SwiperSlide>
-         <SwiperSlide key={1}>
-            <Outlet context={{ path: '/introduction' }}/>
-         </SwiperSlide>
-         <SwiperSlide key={2}>
-            <Outlet context={{ path: '/skills' }}/>
-         </SwiperSlide>
-         <SwiperSlide key={3}>
-            <Outlet context={{ path: '/projects' }}/>
-         </SwiperSlide>
+        {routesWithSwiper.map((route, index) => (
+          <SwiperSlide key={index}>
+            <Outlet context={{ initialSlide, setInitialSlide, navigate, location, routesWithSwiper, handleSlideChange, getSlideIndex }} />
+          </SwiperSlide>
+        ))}
        </Swiper> 
       ) : (
       <Outlet context={{ path: '/bookinventory' }}/>
