@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import { useOutletContext } from 'react-router-dom';
 import api from "./api";  //axios
 import { styled } from "@mui/material/styles";
 import { brown, lightBlue, red, orange } from "@mui/material/colors";
@@ -45,6 +46,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function BookInventory() {
+  const { currentPath } = useOutletContext();
+
   const initialState = {
     isOpen: false,
     rows: [],
@@ -183,7 +186,7 @@ export default function BookInventory() {
   };
 
   // Table body (Start)
-  const rowItems = state.rows.map((row) => (
+  const rowItems = Array.isArray(state.rows) && state.rows.map((row) => (
     <StyledTableRow key={row.BookID}>
       <StyledTableCell align="left" >{row.title}</StyledTableCell>
       <StyledTableCell align="center">{row.copies}</StyledTableCell>

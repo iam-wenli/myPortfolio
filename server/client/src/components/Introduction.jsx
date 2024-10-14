@@ -1,8 +1,10 @@
 import React from 'react';
+import { useOutletContext } from 'react-router-dom';
 import {animated, useSpring} from '@react-spring/web';
 import car from '../assets/P2car.png';
 
 function Introduction() {
+  const { currentPath } = useOutletContext();
 
   const carAnimation= useSpring({
     from:{ x:0 },

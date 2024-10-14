@@ -57,7 +57,6 @@ import 'swiper/css/navigation';
     };
   
     const getSlideIndex = (path) => {
-      console.log('Getting slide index for path:', path);
       switch (path) {
         case '/welcome':
           return 0;
@@ -94,20 +93,20 @@ import 'swiper/css/navigation';
          onSlideChange={handleSlideChange}
        >
          <SwiperSlide>
-            <Outlet/>
+            <Outlet context={{ currentPath: location.pathname }}/>
          </SwiperSlide>
          <SwiperSlide>
-            <Outlet/>
+            <Outlet context={{ currentPath: location.pathname }}/>
          </SwiperSlide>
          <SwiperSlide>
-            <Outlet/>
+            <Outlet context={{ currentPath: location.pathname }}/>
          </SwiperSlide>
          <SwiperSlide>
-            <Outlet/>
+            <Outlet context={{ currentPath: location.pathname }}/>
          </SwiperSlide>
        </Swiper> 
       ) : (
-      <Outlet/>
+      <Outlet context={{ currentPath: location.pathname }}/>
       )} 
       </>
     );

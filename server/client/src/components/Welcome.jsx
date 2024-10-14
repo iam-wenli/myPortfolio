@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useOutletContext } from 'react-router-dom';
 import { animated, useSpring, useSpringRef, useChain } from "@react-spring/web";
 import bee from "../assets/P1bee.png";
 import useBreakpoint from "./useBreakpoint";
@@ -10,6 +11,8 @@ const breakpoints = {
 };
 
 function Welcome() {
+  const { currentPath } = useOutletContext();
+  
   const currentBreakpoint = useBreakpoint(breakpoints);
 
   const welcomeAnimationProps = {
