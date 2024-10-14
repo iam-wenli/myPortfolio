@@ -98,7 +98,7 @@ export default function BookInventory() {
   useEffect(() => {
     const fetchAllBooks = async () => {
       try {
-        const res = await api.get("/Books");
+        const res = await api.get(`${import.meta.env.VITE_BACKEND_URL}/Books`);
         dispatch({
           type: "SET_ROWS",
           payload: res.data
@@ -118,7 +118,7 @@ export default function BookInventory() {
   }, []);
 
   const handleAddBook = () => {
-    api.post("/Books", {
+    api.post(`${import.meta.env.VITE_BACKEND_URL}/Books`, {
       title: state.title, 
       copies: state.copies, 
       price: state.price
@@ -146,25 +146,6 @@ export default function BookInventory() {
       });
   };
 
-  // const handleEditMode = (row) => {
-  //   api.get(`/Books?BookID=${row.BookID}`)
-  //     .then((res)=> {
-  //       const keyValue = res.data;
-  //       const valuesArray = keyValue.map((x)=> Object.values(x));
-  //       dispatch({
-  //         type: "EDITED_DIALOG_OPEN",
-  //         BookID: row.BookID,
-  //         title: row.title,
-  //         copies: row.copies,
-  //         price: row.price
-  //       })
-  //       console.log('Data Retrieved:', row.title);
-  //   })
-  //   .catch((err)=> {
-  //     console.error('Error fetching book:', err.response || err.message || err);
-  //   });
-  // };
-
   const handleEditedData = () => {
     if (!state || !state.BookID) {
       console.error("Row or BookID is undefined");
@@ -178,7 +159,7 @@ export default function BookInventory() {
     };
     console.log("New Data to be sent:", newData);
 
-    api.patch(`/Books/${state.BookID}`, newData)
+    api.patch(`${import.meta.env.VITE_BACKEND_URL}/Books/${state.BookID}`, newData)
     .then((res) => {
       console.log("Success: Data edited", res.data);
       dispatch({ type: "EDITED" });
@@ -189,7 +170,7 @@ export default function BookInventory() {
   };
 
   const handleDeleteBook = (row) => {
-    api.delete(`/Books/${row.BookID}`)
+    api.delete(`${import.meta.env.VITE_BACKEND_URL}/Books/${row.BookID}`)
     .then((res)=>{
       console.log(`${row.title} is deleted !`, res.data);
       dispatch({

@@ -17,7 +17,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "helmet": "^7.1.0",
-    "mysql2": "^3.11.3"
+    "pg": "^8.13.0"
   },
   "proxy": "https://localhost:5173",
   "devDependencies": {
