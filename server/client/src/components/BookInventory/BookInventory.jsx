@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer } from "react";
-import { useOutletContext } from 'react-router-dom';
 import api from "./api";  //axios
 import { styled } from "@mui/material/styles";
 import { brown, lightBlue, red, orange } from "@mui/material/colors";
@@ -46,8 +45,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function BookInventory() {
-  const { path } = useOutletContext();
-
   const initialState = {
     isOpen: false,
     rows: [],

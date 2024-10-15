@@ -65,14 +65,14 @@ import 'swiper/css/navigation';
          initialSlide={initialSlide}
          onSlideChange={handleSlideChange}
        >
-        {routesWithSwiper.map((route, index) => (
+        {routesWithSwiper.map((index) => (
           <SwiperSlide key={index}>
-            <Outlet context={{ initialSlide, setInitialSlide, navigate, location, routesWithSwiper, handleSlideChange, getSlideIndex }} />
+            <Outlet/>
           </SwiperSlide>
         ))}
        </Swiper> 
       ) : (
-      <Outlet context={{ path: '/bookinventory' }}/>
+      <Outlet/>
       )} 
       </>
     );

@@ -1,11 +1,9 @@
 import React from 'react';
-import { useOutletContext } from 'react-router-dom';
 import Card from './Card';
 import coffee from '../assets/P4coffee.png';
 
 
 function Projects() {
-  const { initialSlide, setInitialSlide, navigate, location, routesWithSwiper, handleSlideChange, getSlideIndex } = useOutletContext();
 
   return (
     <div className="font-serif pl-16 py-10 bg-red-300 h-screen relative">

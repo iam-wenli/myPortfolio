@@ -1,12 +1,9 @@
 import * as React from "react";
-import { useOutletContext } from 'react-router-dom';
 import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
 import lamp from "../assets/P3street-lamp.png";
 
 function Skills() {
-  const { initialSlide, setInitialSlide, navigate, location, routesWithSwiper, handleSlideChange, getSlideIndex } = useOutletContext();
-
   const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 80,
     height: 40,
