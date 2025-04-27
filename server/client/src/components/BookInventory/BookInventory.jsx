@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import inventoryVideo from "../../assets/Book_Inventory.mov";
 import api from "./api";  //axios
 import { styled } from "@mui/material/styles";
 import { brown, lightBlue, red, orange } from "@mui/material/colors";
@@ -112,7 +113,7 @@ export default function BookInventory() {
 
     const refreshInterval = setInterval(() => {
       fetchAllBooks();
-    }, 10000);
+    }, 2000);
 
     return () => clearInterval(refreshInterval); // Cleanup on unmount
   }, []);
@@ -241,6 +242,7 @@ export default function BookInventory() {
   ));
   // Table body (End)
 
+  if (process.env.NODE_ENV !== 'production') {
   return (
     <div className="relative">
       <h1 className="font-bold text-3xl py-6 px-10 mb-6 bg-sky-100 fixed top-0 left-0 right-0">Book Inventory</h1>
@@ -363,4 +365,16 @@ export default function BookInventory() {
       </Box>
     </div>
   );
+}
+else {
+  return (
+    <div className="p-8 place-self-center">
+        <video src={inventoryVideo} controls>
+        </video>
+        <h3 className="font-semibold pt-6">
+          The above is a simple demo of MySQL
+        </h3>
+    </div>
+  );
+}
 }

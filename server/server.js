@@ -6,7 +6,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-const Port = process.env.PORT || 3306;
+const Port = process.env.PORT || 3000;
 
 // Middleware
 app.use(helmet());
@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, "client", "dist")));
 // MySQL setup
 const db = mysql.createConnection({
   host: process.env.SQLHOST,
-  user: process.env.USER,
+  user: process.env.USER_HERE,
   password: process.env.MYSQL_PW,
   database: process.env.DATABASE,
 });
@@ -25,7 +25,8 @@ const db = mysql.createConnection({
 // Connect to the database
 db.connect((err) => {
   if (err) {
-    throw err;
+    console.error('error connecting: ' + err.stack);
+    return;
   }
   console.log("MySQL connected ...");
 });
@@ -33,7 +34,7 @@ db.connect((err) => {
 // Update a book
 app.patch("/api/Books/:BookID",(req,res)=> {
   const {BookID} = req.params;
-  const sql = "UPDATE Books SET title=?, copies=?, price=? WHERE BookID=?";
+  const sql = "UPDATE booklist SET title=?, copies=?, price=? WHERE BookID=?";
     const values = [
       req.body.title,
       req.body.copies,
@@ -57,7 +58,7 @@ app.patch("/api/Books/:BookID",(req,res)=> {
 //   const {BookID} = req.params;
 //   console.log("Fetching book with ID:", BookID);
 
-//   const sql = "SELECT * FROM Books WHERE BookID = ?";
+//   const sql = "SELECT * FROM booklist WHERE BookID = ?";
 //   db.query(sql, [BookID], (err, results) => {
 //     if(err) {
 //       console.error("Error querying book:", err);
@@ -75,7 +76,7 @@ app.patch("/api/Books/:BookID",(req,res)=> {
 // Delete a book
 app.delete("/api/Books/:BookID", (req, res) => {
   const {BookID} = req.params;
-  const query = 'DELETE FROM Books WHERE BookID = ?';
+  const query = 'DELETE FROM booklist WHERE BookID = ?';
   db.query(query, [BookID], (err, result) => {
     if (err) {
       console.error('Error deleting book:', err);
@@ -93,7 +94,7 @@ app.delete("/api/Books/:BookID", (req, res) => {
 // Add a new book
 app.post("/api/Books", (req, res) => {
   const sql =
-    "INSERT INTO Books (title, copies, price) VALUES (?,?,?)";
+    "INSERT INTO booklist (title, copies, price) VALUES (?,?,?)";
   const values = [
     req.body.title,
     req.body.copies,
@@ -109,9 +110,10 @@ app.post("/api/Books", (req, res) => {
 // Get all books
 app.get("/api/Books", (req, res) => {
   console.log('Fetching books...');
-  const sql = "SELECT * FROM Books";
+  const sql = "SELECT * FROM booklist";
   db.query(sql, (err, results) => {
     if (err) {
+        console.error('MySQL error:', err);
         res.status(500).json({ error: 'Database query failed' });
         return;
       }      
@@ -121,8 +123,10 @@ app.get("/api/Books", (req, res) => {
 
   // Error handling middleware
   app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something went wrong!');
+    // console.error(err.stack);
+    // res.status(500).send('Something went wrong!');
+    console.error("Internal Server Error:", err);
+    res.status(500).json({ message: "Something went wrong!" });
   });
 
 // Handle root route
