@@ -14,12 +14,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client", "dist")));
 
-// MySQL setup
-const db = mysql.createConnection({
-  host: process.env.SQLHOST,
-  user: process.env.USER_HERE,
-  password: process.env.MYSQL_PW,
-  database: process.env.DATABASE,
+// MySQL setup - connection if not in production mode
+let db;
+
+if (process.env.NODE_ENV !== 'production') {
+  db = mysql.createConnection({
+    host: process.env.SQLHOST,
+    user: process.env.USER_HERE,
+    password: process.env.MYSQL_PW,
+    database: process.env.DATABASE,
 });
 
 // Connect to the database
@@ -30,6 +33,17 @@ db.connect((err) => {
   }
   console.log("MySQL connected ...");
 });
+} else {
+  console.log('Skipping MySQL connection in production.');
+}
+
+// Middleware to check DB connection
+function requireDatabase(req, res, next) {
+  if (!db) {
+    return res.status(503).json({ error: 'Database not connected in production.' });
+  }
+  next();
+}
 
 // Update a book
 app.patch("/api/Books/:BookID",(req,res)=> {
