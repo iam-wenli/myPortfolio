@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Welcome from './components/Welcome';
+import Introduction from './components/Introduction';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import { Parallax, Pagination, Navigation } from 'swiper/modules';
@@ -29,13 +33,11 @@ import 'swiper/css/navigation';
     }, []);
 
     useEffect(() => {
-      console.log('Location changed:', location.pathname);
       const slideIndex = getSlideIndex(location.pathname);
       setInitialSlide(slideIndex);
     }, [location]);
 
     const handleSlideChange = (swiper) => {
-      console.log('Slide changed to:', swiper.activeIndex);
       localStorage.setItem('currentSlide', swiper.activeIndex);
       switch (swiper.activeIndex) {
         case 0:
@@ -57,7 +59,6 @@ import 'swiper/css/navigation';
     };
   
     const getSlideIndex = (path) => {
-      console.log('Getting slide index for path:', path);
       switch (path) {
         case '/welcome':
           return 0;
@@ -83,9 +84,7 @@ import 'swiper/css/navigation';
          }}
          speed={600}
          parallax={true}
-         pagination={{
-           clickable: true,
-         }}
+         pagination={{clickable: true}}
          navigation={true}
          modules={[Parallax, Pagination, Navigation]}
          spaceBetween={0}
@@ -94,16 +93,16 @@ import 'swiper/css/navigation';
          onSlideChange={handleSlideChange}
        >
          <SwiperSlide>
-            <Outlet/>
+            <Welcome/>
          </SwiperSlide>
          <SwiperSlide>
-            <Outlet/>
+            <Introduction/>
          </SwiperSlide>
          <SwiperSlide>
-            <Outlet/>
+            <Skills/>
          </SwiperSlide>
          <SwiperSlide>
-            <Outlet/>
+            <Projects/>
          </SwiperSlide>
        </Swiper> 
       ) : (
