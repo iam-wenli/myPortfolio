@@ -10,7 +10,7 @@ function Projects() {
       <h1 className="text-left font-bold text-2xl sm:text-4xl py-3 pb-10 sm:pb-14">
         Projects
       </h1>
-      <Card title={"Inventory Management"} navigateTo="/bookinventory" />
+      <Card title={"Inventory Management"} navigateTo="projects/bookinventory" />
       <img className="w-28 h-28 sm:w-48 sm:h-52 absolute bottom-0 right-14 mb-12" src={coffee} alt="coffee" />
     </div>
   );

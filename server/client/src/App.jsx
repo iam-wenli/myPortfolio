@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Welcome from './components/Welcome';
 import Introduction from './components/Introduction';
 import Skills from './components/Skills';
@@ -17,29 +17,59 @@ import 'swiper/css/navigation';
     const [initialSlide, setInitialSlide] = useState(0);
     const navigate = useNavigate();
     const location = useLocation();
+    const swiperRef = useRef(null);
     const routesWithSwiper = ["/welcome","/introduction","/skills","/projects"];
 
-    useEffect(() => {
-      const savedSlideIndex = localStorage.getItem('currentSlide');
-      if (savedSlideIndex !== null) {
-        const parsedIndex = parseInt(savedSlideIndex, 10);
-        if (!isNaN(parsedIndex)) {
-        setInitialSlide(parsedIndex);
-        }
-      } else {
-        const slideIndex = getSlideIndex(location.pathname);
-        setInitialSlide(slideIndex);
+    const getSlideIndex = (path) => {
+      switch (path) {
+        case '/welcome':
+          return 0;
+        case '/introduction':
+          return 1;
+        case '/skills':
+          return 2;
+        case '/projects':
+          return 3;
+        default:
+          return 0;
       }
-    }, []);
+    };
 
-    useEffect(() => {
-      const slideIndex = getSlideIndex(location.pathname);
-      setInitialSlide(slideIndex);
-    }, [location]);
+  useEffect(() => {
+    const savedSlideIndex = parseInt(localStorage.getItem('currentSlide'), 10);
+    const targetIndex = !isNaN(savedSlideIndex)
+      ? savedSlideIndex
+      : getSlideIndex(location.pathname);
+    setInitialSlide(targetIndex);
+
+    // 👇 Use slideTo instead of re-mounting Swiper
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(targetIndex, 0);
+    }
+  }, [location]);
+
+    // useEffect(() => {
+    //   const savedSlideIndex = localStorage.getItem('currentSlide');
+    //   if (savedSlideIndex !== null) {
+    //     const parsedIndex = parseInt(savedSlideIndex, 10);
+    //     if (!isNaN(parsedIndex)) {
+    //     setInitialSlide(parsedIndex);
+    //     }
+    //   } else {
+    //     const slideIndex = getSlideIndex(location.pathname);
+    //     setInitialSlide(slideIndex);
+    //   }
+    // }, []);
+
+    // useEffect(() => {
+    //   const slideIndex = getSlideIndex(location.pathname);
+    //   setInitialSlide(slideIndex);
+    // }, [location]);
 
     const handleSlideChange = (swiper) => {
-      localStorage.setItem('currentSlide', swiper.activeIndex);
-      switch (swiper.activeIndex) {
+      const index = swiper.activeIndex;
+      localStorage.setItem('currentSlide', index);
+      switch (index) {
         case 0:
           navigate('/welcome');
           break;
@@ -58,26 +88,12 @@ import 'swiper/css/navigation';
       }
     };
   
-    const getSlideIndex = (path) => {
-      switch (path) {
-        case '/welcome':
-          return 0;
-        case '/introduction':
-          return 1;
-        case '/skills':
-          return 2;
-        case '/projects':
-          return 3;
-        default:
-          return 0;
-      }
-    };
     
     return (
       <>
       {routesWithSwiper.includes(location.pathname) ? (
         <Swiper
-         key={initialSlide}
+         onSwiper={(swiper) => { swiperRef.current = swiper; }}
          style={{
            '--swiper-navigation-color': '#fff',
            '--swiper-pagination-color': '#fff',

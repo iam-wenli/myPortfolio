@@ -25,14 +25,14 @@ if (process.env.NODE_ENV !== 'production') {
     database: process.env.DATABASE,
 });
 
-// Connect to the database
-db.connect((err) => {
+  // Connect to the database
+  db.connect((err) => {
   if (err) {
     console.error('error connecting: ' + err.stack);
     return;
   }
   console.log("MySQL connected ...");
-});
+  });
 } else {
   console.log('Skipping MySQL connection in production.');
 }
@@ -130,10 +130,10 @@ app.get("/api/Books", (req, res) => {
         console.error('MySQL error:', err);
         res.status(500).json({ error: 'Database query failed' });
         return;
-      }      
+    }      
       res.json(results);  // Return book records as JSON
-    });
   });
+});
 
   // Error handling middleware
   app.use((err, req, res, next) => {
