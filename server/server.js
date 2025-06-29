@@ -123,6 +123,8 @@ app.post("/api/Books", (req, res) => {
 
 // Get all books
 app.get("/api/Books", (req, res) => {
+  if (!db) return res.status(503).json({ error: 'DB not connected in production' });
+
   console.log('Fetching books...');
   const sql = "SELECT * FROM booklist";
   db.query(sql, (err, results) => {
