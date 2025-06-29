@@ -4,8 +4,10 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/',
   plugins: [react()],
   build: {outDir: 'dist'},
+  define: {'process.env': process.env},
   server: {
     proxy: {
       // Proxy API requests
@@ -15,6 +17,5 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
-  },
-  base: '/'
-})
+  }
+});

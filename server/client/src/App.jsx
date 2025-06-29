@@ -18,10 +18,11 @@ import 'swiper/css/navigation';
     const navigate = useNavigate();
     const location = useLocation();
     const swiperRef = useRef(null);
-    const routesWithSwiper = ["/welcome","/introduction","/skills","/projects"];
+    const routesWithSwiper = ["/","/welcome","/introduction","/skills","/projects"];
 
     const getSlideIndex = (path) => {
       switch (path) {
+        case '/':
         case '/welcome':
           return 0;
         case '/introduction':

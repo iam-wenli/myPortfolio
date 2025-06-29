@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, replace, RouterProvider } from 'react-router-dom';
 import App from '../App';
 import Welcome from './Welcome';
 import Introduction from './Introduction';
@@ -15,12 +15,13 @@ const router = createBrowserRouter([
     element: <App/>,
     errorElement: <ErrorPage/>,
     children: [
-      {index:true, path:"welcome", element:<Welcome/>},
+      {index:true, element:<Welcome/>},
+      {path:"welcome", element:<Welcome/>},
       {path:"introduction", element:<Introduction/>},
       {path:"skills", element:<Skills/>},
       {path:"projects", element:<Projects/>},
       {path:"projects/bookinventory", element:<BookInventory/>}
-    ],
+    ]
   }
 ]);
 
